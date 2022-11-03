@@ -1109,7 +1109,7 @@ input, select, textarea {
 	#bg {
 		width: 400px;
 		height: 500px;
-		overflow: hidden;
+		max-height: 0px;
 	}
 
 		#bg:before, #bg:after {
