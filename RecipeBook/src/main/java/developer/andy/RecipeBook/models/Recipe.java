@@ -3,9 +3,13 @@ package developer.andy.RecipeBook.models;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -20,11 +24,16 @@ public class Recipe {
 	
 	private Integer time;
 	
-	private List ingredients;
-	
 	private String description;
 	
 	private String directions;
+	
+	@OneToMany(mappedBy = "recipe", fetch = FetchType.LAZY)
+	private List<Ingredient> ingredients;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id")
+	private User user;
 
 	public Long getId() {
 		return id;
@@ -50,11 +59,11 @@ public class Recipe {
 		this.time = time;
 	}
 
-	public List getIngredients() {
+	public List<Ingredient> getIngredients() {
 		return ingredients;
 	}
 
-	public void setIngredients(List ingredients) {
+	public void setIngredients(List<Ingredient> ingredients) {
 		this.ingredients = ingredients;
 	}
 
@@ -73,6 +82,13 @@ public class Recipe {
 	public void setDirections(String directions) {
 		this.directions = directions;
 	}
-	
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 	
 }

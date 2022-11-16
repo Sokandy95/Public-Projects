@@ -1,9 +1,13 @@
 package developer.andy.RecipeBook.models;
 
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -25,6 +29,9 @@ public class User {
 	private String fName;
 	
 	private String lName;
+	
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	private List<Recipe> recipes;
 
 	public Long getId() {
 		return id;
@@ -80,6 +87,14 @@ public class User {
 
 	public void setlName(String lName) {
 		this.lName = lName;
+	}
+
+	public List<Recipe> getRecipes() {
+		return recipes;
+	}
+
+	public void setRecipes(List<Recipe> recipes) {
+		this.recipes = recipes;
 	}
 	
 }
