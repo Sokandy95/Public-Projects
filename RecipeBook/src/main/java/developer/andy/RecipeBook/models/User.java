@@ -2,7 +2,10 @@ package developer.andy.RecipeBook.models;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,16 +21,22 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private boolean isAdmin;
+	@Enumerated(EnumType.STRING)
+	private Role role;
 	
+	@Column(unique = true, nullable = false, length = 10)
 	private String username;
 	
+	@Column(nullable = false, length = 10)
 	private String password;
 	
+	@Column(unique = true, nullable = false, length = 40)
 	private String email;
 	
+	@Column(nullable = false, length = 20)
 	private String fName;
 	
+	@Column(nullable = false, length = 20)
 	private String lName;
 	
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
@@ -41,12 +50,12 @@ public class User {
 		this.id = id;
 	}
 
-	public boolean isAdmin() {
-		return isAdmin;
+	public Role getRole() {
+		return role;
 	}
 
-	public void setAdmin(boolean isAdmin) {
-		this.isAdmin = isAdmin;
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 	public String getUsername() {
